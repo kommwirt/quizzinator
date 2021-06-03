@@ -1,0 +1,189 @@
+// The Data
+
+let data=[
+    { 
+      url:"https://cdn.playbuzz.com/cdn//f063e8fe-ad57-485e-8211-ed2ee0d9a205/4a864049-816a-479e-8736-51740e8b724b.jpg",
+      question:"Which ocean lies on the east coast of the United States?",
+      choice:["Eastern","Pacific","Indian","Atlantic"],
+      answer:"Atlantic"
+    },
+    { 
+      url:"https://cdn.playbuzz.com/cdn//f063e8fe-ad57-485e-8211-ed2ee0d9a205/4d101ba1-9275-4fb5-ba2c-5606e6c0274e.jpg",
+      question:"Which is the world's highest mountain?",
+      choice:["K2","Makalu","Mount Everest","Kilimanjaro"],
+      answer:"Mount Everest"
+    },
+    { 
+      url:"https://cdn.playbuzz.com/cdn//f063e8fe-ad57-485e-8211-ed2ee0d9a205/07121a24-b34b-4711-9bfa-5287163e65ce.jpg",
+      question:"Which of these cities is not in Europe?",
+      choice:["Prague","Novosibirsk","Barcelona","Reykjavik"],
+      answer:"Novosibirsk"
+    },
+    { 
+      url:"https://cdn.playbuzz.com/cdn//f063e8fe-ad57-485e-8211-ed2ee0d9a205/467a486b-be3a-4183-90ed-dd6867d5852d.jpg",
+      question:"True or False: Iceland is covered in ice.",
+      choice:[true,false],
+      answer:false
+    },
+    { 
+      url:"https://cdn.playbuzz.com/cdn//f063e8fe-ad57-485e-8211-ed2ee0d9a205/ecf8af7b-8541-4572-b63b-ee7d7f9fc4cc.jpg",
+      question:"The United Kingdom is comprised of how many countries?",
+      choice:[1,2,3,4],
+      answer:4
+    },
+    { 
+      url:"https://cdn.playbuzz.com/cdn//f063e8fe-ad57-485e-8211-ed2ee0d9a205/ecf8af7b-8541-4572-b63b-ee7d7f9fc4cc.jpg",
+      question:"Which of the following countries do not border France?",
+      choice:["Germany","Netherlands","Spain","Italy"],
+      answer:"Netherlands"
+    },
+      { 
+      url:"https://cdn.playbuzz.com/cdn//f063e8fe-ad57-485e-8211-ed2ee0d9a205/6e99b817-7be7-4f8a-9146-3f602ac81fad.jpg",
+      question:"Which U.S. state is the Grand Canyon located in?",
+      choice:["Wyoming","Arizona","New Mexico","Nevada"],
+      answer:"Arizona"
+    },
+   { 
+      url:"https://cdn.playbuzz.com/cdn//f063e8fe-ad57-485e-8211-ed2ee0d9a205/866f119d-e5e2-45ca-846c-b6d10a59d1e4.jpg",
+      question:"Which is the smallest country, measured by total land area?",
+      choice:["Maldives","Monaco","Vatican"],
+      answer:"Vatican"
+    },
+   { 
+      url:"https://cdn.playbuzz.com/cdn//f063e8fe-ad57-485e-8211-ed2ee0d9a205/13efaf72-d695-4f65-b043-2b805b6a88eb.jpg",
+      question:"Which is the longest river in the world?",
+      choice:["Amazon River","Congo River","Yellow River","Nile River"],
+      answer:"Nile River"
+    },
+   { 
+      url:"https://cdn.playbuzz.com/cdn//f063e8fe-ad57-485e-8211-ed2ee0d9a205/1226f177-dc1a-4142-8875-bdaa177717d7.jpg",
+      question:"Which is the largest body of water?",
+      choice:["indian Ocean","Pacific Ocean","Atlantic Ocean","Nile River"],
+      answer:"Pacific Ocean"
+    }
+]
+
+
+
+// Where to display the whole content
+
+let content = document.getElementById('content')
+
+// Before Content the intro is desplayed
+let bodyTag = document.querySelector('body')
+let header = document.createElement('header')
+bodyTag.insertBefore(header, content)
+
+let h1 = document.createElement('h1')
+let p = document.createElement('p')
+let h1Text = document.createTextNode('Bienvenidos to the quizzicator')
+let introText = document.createTextNode('Hombre. It is easy. You get questions. If you answer them correctamente: You will keep your score. If not: Guess what: You gonna be rápido kaputt by every wrong answer. After the green button ist flashing, please wait: You will be teleported to the next question automatically. ¿Entiendo?')
+header.appendChild(h1)
+header.appendChild(p)
+
+h1.appendChild(h1Text)
+p.appendChild(introText)
+p.classList.add('introtext')
+
+let buttonKepper = document.createElement('div')
+let buttonSi = document.createElement('button')
+buttonSi.innerHTML = 'Si, claro, Chef'
+let buttonNo = document.createElement('button')
+buttonNo.innerHTML = 'No, not really...'
+header.appendChild(buttonKepper)
+buttonKepper.appendChild(buttonSi)
+buttonKepper.appendChild(buttonNo)
+
+buttonSi.addEventListener('click', function(){
+    buttonSi.classList.add('green')
+    buttonSi.innerHTML = 'So get ready'
+    setTimeout(
+        function scrollToStart() {
+            
+            let scrollDistance = document.documentElement.clientHeight
+            window.scrollBy(0, scrollDistance)
+            
+        },2000)
+        scrollToStart()
+})
+
+buttonNo.addEventListener('click', function(){
+    buttonNo.classList.add('red')
+    buttonNo.innerHTML = 'Are you bananas?'
+    setTimeout(
+        function changeText() {
+            let change = document.querySelector('p')
+           change.classList.add('red')
+           change.innerText ='ເຈົ້າເອົາປຸ່ມຊ້າຍໄປດຽວນີ້ຫລືຂ້ອຍຈະເຮັດໃຫ້ເຈົ້າເປັນເພື່ອນຂອງຂ້ອຍ! ຕອບ ຄຳ ຖາມ! ງ່າຍໆ! ທ່ານສາມາດລຽນແຖວແບບນັ້ນໄດ້ແນວໃດ? ໂລບຫລືຫຍັງ? ແທນທີ່ຈະວຸ່ນວາຍ. ວ່າຄົນແບບນັ້ນຕ້ອງໄດ້ນັ່ງຢູ່ທີ່ນີ້ຕໍ່ ໜ້າ ຄອມພິວເຕີທຸກໆຄັ້ງ. ບໍ່, ຂ້ອຍບໍ່ອຸກໃຈ. ຂ້ອຍບໍ່ອຸກໃຈ ... Better?'
+            
+        },1000)
+        changeText()
+})
+
+// Base for unique IDs for each section
+let idNumber = 0
+
+
+
+quiz = () => {
+   
+
+    data.forEach(function(question)
+    {
+        //we build a section for each question
+        let section = document.createElement('section')
+        content.appendChild(section)
+
+        // Next we create an unique ID for each section for an auto-scroll after the correct answer 
+        let newID = idNumber++
+        section.setAttribute('id',`'section${newID}'`)
+
+         //We need an image for each section 
+        let image = document.createElement('img')
+        image.src = question.url
+        section.appendChild(image)
+
+         //Get the questions for each section
+        let questionText = document.createElement('h2')
+        questionText.innerHTML = question.question
+        section.appendChild(questionText)
+        
+        // Preparing a container for the buttons
+
+        let buttonContainer = document.createElement('div')
+        buttonContainer.classList.add("buttoncontainer")
+        section.appendChild(buttonContainer)
+
+        // Creating the answer buttons for each question
+
+        question.choice.forEach(answer => {
+            
+            
+            let answerButton = document.createElement('button')
+            answerButton.innerHTML = answer
+           
+
+            buttonContainer.appendChild(answerButton)
+
+            // Now checking the right answer by click
+            answerButton.addEventListener('click' , () =>{
+                if (answer == question.answer) {
+                    answerButton.classList.add('green')
+                    setTimeout(
+                    function scrollToSomewhere() {
+                        
+                        let scrollDistance = document.documentElement.clientHeight
+                        window.scrollBy(0, scrollDistance)
+                        
+                    },2000)
+                    scrollToSomewhere()
+                }
+                else {
+                    answerButton.classList.add('red')
+                }
+            })
+        })
+
+})
+}
+quiz()
