@@ -1,4 +1,4 @@
-// The Data
+// The given data
 
 let data=[
     { 
@@ -63,8 +63,6 @@ let data=[
     }
 ]
 
-
-
 // Where to display the whole content
 
 let content = document.getElementById('content')
@@ -77,7 +75,7 @@ bodyTag.insertBefore(header, content)
 let h1 = document.createElement('h1')
 let p = document.createElement('p')
 let h1Text = document.createTextNode('Bienvenidos to the quizzicator')
-let introText = document.createTextNode('Hombre. It is easy. You get questions. If you answer them correctamente: You will keep your score. If not: Guess what: You gonna be rápido kaputt by every wrong answer. After the green button ist flashing, please wait: You will be teleported to the next question automatically. ¿Entiendo?')
+let introText = document.createTextNode(`It is easy. You get questions. If you answer them correctamente: You will keep your credit. If not: Guess what: You gonna be rápido kaputt by every wrong answer. After the green button is flashing, please wait: You will be teleported to the next question automatically. Got it?`)
 header.appendChild(h1)
 header.appendChild(p)
 
@@ -103,40 +101,76 @@ buttonSi.addEventListener('click', function(){
             let scrollDistance = document.documentElement.clientHeight
             window.scrollBy(0, scrollDistance)
             
-        },2000)
-        scrollToStart()
+        },300)
 })
 
 buttonNo.addEventListener('click', function(){
     buttonNo.classList.add('red')
     buttonNo.innerHTML = 'Are you bananas?'
+    
     setTimeout(
         function changeText() {
             let change = document.querySelector('p')
-           change.classList.add('red')
+           
            change.innerText ='ເຈົ້າເອົາປຸ່ມຊ້າຍໄປດຽວນີ້ຫລືຂ້ອຍຈະເຮັດໃຫ້ເຈົ້າເປັນເພື່ອນຂອງຂ້ອຍ! ຕອບ ຄຳ ຖາມ! ງ່າຍໆ! ທ່ານສາມາດລຽນແຖວແບບນັ້ນໄດ້ແນວໃດ? ໂລບຫລືຫຍັງ? ແທນທີ່ຈະວຸ່ນວາຍ. ວ່າຄົນແບບນັ້ນຕ້ອງໄດ້ນັ່ງຢູ່ທີ່ນີ້ຕໍ່ ໜ້າ ຄອມພິວເຕີທຸກໆຄັ້ງ. ບໍ່, ຂ້ອຍບໍ່ອຸກໃຈ. ຂ້ອຍບໍ່ອຸກໃຈ ... Better?'
-            
+           buttonSi.innerHTML = 'Click that button!'
+          let min = 0
+           let max = 255
+           setInterval(() => {
+            let r = (Math.random() * (max - min)) + min;
+            let g = (Math.random() * (max - min)) + min;
+            let b = (Math.random() * (max - min)) + min;
+            let rgb = [r, g, b]
+            buttonSi.style.backgroundColor=`rgb(${rgb})`
+           }, 500);
         },1000)
-        changeText()
+        
 })
 
-// Base for unique IDs for each section
-let idNumber = 0
+//Preparing a container for the score
 
+let scoreContainer = document.createElement('div')
+scoreContainer.classList.add("scorecontainer")
+content.appendChild(scoreContainer)
+let scoreText = document.createElement('div')
+scoreText.classList.add("scoretext")
+let scoreScore = document.createElement('div')
+scoreScore.classList.add("scorescore")
+scoreContainer.appendChild(scoreText)
 
+scoreContainer.appendChild(scoreScore)
+scoreText.innerHTML = 'Your credit so far:'
+
+// Getting the starting credit done
+let startCredit = 1
+let reducedCredit
+data.forEach((part) => {
+  part.choice.forEach(i => {
+    let endCredit = startCredit++
+    reducedCredit = endCredit - endCredit%10
+    return reducedCredit
+  })
+})
+scoreScore.innerHTML = reducedCredit
+
+// The Footer
+
+let script = document.querySelector('script')
+let footer = document.createElement('footer')
+bodyTag.insertBefore(footer, script)
+let footerContainer = document.createElement('div')
+footerContainer.classList.add("footercontainer")
+footer.appendChild(footerContainer)
+footerContainer.innerHTML="Not so bad, amigo!"
 
 quiz = () => {
-   
 
     data.forEach(function(question)
     {
+        
         //we build a section for each question
         let section = document.createElement('section')
         content.appendChild(section)
-
-        // Next we create an unique ID for each section for an auto-scroll after the correct answer 
-        let newID = idNumber++
-        section.setAttribute('id',`'section${newID}'`)
 
          //We need an image for each section 
         let image = document.createElement('img')
@@ -153,18 +187,17 @@ quiz = () => {
         let buttonContainer = document.createElement('div')
         buttonContainer.classList.add("buttoncontainer")
         section.appendChild(buttonContainer)
-
+    
         // Creating the answer buttons for each question
 
         question.choice.forEach(answer => {
             
+          
             
             let answerButton = document.createElement('button')
             answerButton.innerHTML = answer
-           
-
             buttonContainer.appendChild(answerButton)
-
+            
             // Now checking the right answer by click
             answerButton.addEventListener('click' , () =>{
                 if (answer == question.answer) {
@@ -176,14 +209,24 @@ quiz = () => {
                         window.scrollBy(0, scrollDistance)
                         
                     },2000)
-                    scrollToSomewhere()
+                   
                 }
                 else {
                     answerButton.classList.add('red')
+                    reducedCredit--
+                    scoreScore.innerHTML = reducedCredit
+                            
+                    if(reducedCredit == 0){
+                      footer.scrollIntoView()
+                      footerContainer.innerHTML="You have lost! What's wrong with you? Wikepedia? Google? Get back to your fax, pager, whatever... Internet is not your world."
+                    }
+                    
                 }
             })
         })
-
+        
+       
 })
+
 }
 quiz()
