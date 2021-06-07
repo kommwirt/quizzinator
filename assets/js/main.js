@@ -101,7 +101,7 @@ buttonSi.addEventListener('click', function(){
             let scrollDistance = document.documentElement.clientHeight
             window.scrollBy(0, scrollDistance)
             
-        },300)
+        },1000)
 })
 
 buttonNo.addEventListener('click', function(){
