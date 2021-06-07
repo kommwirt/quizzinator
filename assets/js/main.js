@@ -95,6 +95,7 @@ buttonKepper.appendChild(buttonNo)
 buttonSi.addEventListener('click', function(){
     buttonSi.classList.add('green')
     buttonSi.innerHTML = 'So get ready'
+    buttonSi.disabled = true;
     setTimeout(
         function scrollToStart() {
             
@@ -144,10 +145,13 @@ scoreText.innerHTML = 'Your credit so far:'
 // Getting the starting credit done
 let startCredit = 1
 let reducedCredit
+let rightAnswers = 0
 data.forEach((part) => {
+  
+  rightAnswers++
   part.choice.forEach(i => {
     let endCredit = startCredit++
-    reducedCredit = endCredit - endCredit%10
+    reducedCredit = endCredit - rightAnswers
     return reducedCredit
   })
 })
@@ -202,6 +206,7 @@ quiz = () => {
             answerButton.addEventListener('click' , () =>{
                 if (answer == question.answer) {
                     answerButton.classList.add('green')
+                    answerButton.disabled = true;
                     setTimeout(
                     function scrollToSomewhere() {
                         
@@ -215,6 +220,7 @@ quiz = () => {
                     answerButton.classList.add('red')
                     reducedCredit--
                     scoreScore.innerHTML = reducedCredit
+                    answerButton.disabled = true;
                             
                     if(reducedCredit == 0){
                       footer.scrollIntoView()
