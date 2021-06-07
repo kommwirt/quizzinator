@@ -145,12 +145,12 @@ scoreText.innerHTML = 'Your credit so far:'
 // Getting the starting credit done
 let startCredit = 1
 let reducedCredit
+let endCredit
 let rightAnswers = 0
 data.forEach((part) => {
-  
   rightAnswers++
   part.choice.forEach(i => {
-    let endCredit = startCredit++
+    endCredit = startCredit++
     reducedCredit = endCredit - rightAnswers
     return reducedCredit
   })
@@ -207,9 +207,23 @@ quiz = () => {
                 if (answer == question.answer) {
                     answerButton.classList.add('green')
                     answerButton.disabled = true;
+                    let commentsTop = [
+                      'Blingbling, good thing!',
+                      'Mucho righty, allmighty!',
+                      'Wanna marry me?',
+                      'Today is your birthday!',
+                      'Get your dancing shoes!.'
+                    ]
+                    let min = 0
+                    let max = 4
+           
+                    let commentTop = Math.floor(Math.random() * (max - min)) + min
+                    
+                    scoreScore.innerHTML = `${commentsTop[commentTop]}`
+                    
                     setTimeout(
                     function scrollToSomewhere() {
-                        
+                      scoreScore.innerHTML = reducedCredit
                         let scrollDistance = document.documentElement.clientHeight
                         window.scrollBy(0, scrollDistance)
                         
@@ -218,16 +232,36 @@ quiz = () => {
                 }
                 else {
                     answerButton.classList.add('red')
-                    reducedCredit--
-                    scoreScore.innerHTML = reducedCredit
+                    let comments = [
+                      'Nope pope. Uno point is gone!',
+                      'Wrongipongi. Say adios to one point.',
+                      'Are you serious? Tis point is gone.',
+                      'Noway is not Norway. Gimme that point.',
+                      'Sadbadmad. The point is gone.'
+                    ]
+                    let min = 0
+                    let max = 4
+           
+                    let comment = Math.floor(Math.random() * (max - min)) + min
+                    
+                    scoreScore.innerHTML = `${comments[comment]}`
+                    
                     answerButton.disabled = true;
-                            
+                    answerButton.classList.add('nooutline')
+                    reducedCredit--
+                    setTimeout(() => {
+                      scoreScore.innerHTML = reducedCredit
+                    }, 1500);
+                    
+                    
+
                     if(reducedCredit == 0){
                       footer.scrollIntoView()
                       footerContainer.innerHTML="You have lost! What's wrong with you? Wikepedia? Google? Get back to your fax, pager, whatever... Internet is not your world."
                     }
                     
                 }
+                
             })
         })
         
